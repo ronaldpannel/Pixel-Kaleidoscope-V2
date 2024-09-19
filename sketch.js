@@ -15,20 +15,34 @@ let colors = [
   "#f589a3",
   "#ef562f",
   "#fc8405",
-  "#f9d531"
+  "#f9d531",
 ];
+let animate;
+const pauseBtn = document.getElementById("pauseBtn");
+const saveBtn = document.getElementById("saveBtn");
+const refreshBtn = document.getElementById("refreshBtn");
 
 function setup() {
-  createCanvas(400, 400);
+  let canvas = createCanvas(400, 400);
 
+  canvas.parent("container");
   angleMode(DEGREES);
+  animate = false;
+  pauseBtn.addEventListener("click", () => {
+    animate = !animate;
+  });
+  saveBtn.addEventListener("click", () => {
+    saveImg();
+  });
+  refreshBtn.addEventListener("click", (e) => {
+  window.location.reload();
+  });
 
   cols = width / size;
   rows = height / size;
 
   x = floor(random(cols / 2 - margin, cols / 2 + margin));
   y = floor(random(rows / 2 - margin, rows / 2 + margin));
-   console.log(x, y)
 
   for (let i = 0; i < cols; i++) {
     grid[i] = [];
@@ -38,13 +52,19 @@ function setup() {
   }
 }
 
+function saveImg() {
+  save("art.png");
+}
+
 function draw() {
   background(0);
   stroke(0);
+  if (animate) {
+    noLoop();
+  }
 
   dx = random([-1, 1]);
   dy = random([-2, -1, 1, 2]);
- 
 
   if (x + dx < 0 || x + dx > cols - 1) {
     dx = 0;
