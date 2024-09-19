@@ -42,7 +42,7 @@ function draw() {
   background(0);
   stroke(0);
 
-  dx = random([-2, -1, 1, 2]);
+  dx = random([-1, 1]);
   dy = random([-2, -1, 1, 2]);
  
 
